@@ -1,11 +1,10 @@
 import numpy as np
 
+class TSNE:
+    def __init__(self):
+        pass
 
-class t_SNE:
-    def __init__(self, X):
-        self.X = X
-
-    def neg_squared_euc_dists(self):
+    def neg_squared_euc_dists(self, X):
         """Compute matrix containing negative squared euclidean
         distance for all pairs of points in input matrix X
 
@@ -16,8 +15,10 @@ class t_SNE:
             euclidean distance between rows X_i and X_j
         """
         # Math? See https://stackoverflow.com/questions/37009647
-        sum_X = np.sum(np.square(self.X), 1)
-        D = np.add(np.add(-2 * np.dot(self.X, self.X.T), sum_X).T, sum_X)
+        
+        sum_X = np.sum(np.square(X), 1)
+        D = np.add(np.add(-2 * np.dot(X, X.T), sum_X).T, sum_X)
+        print('D', D)
         return -D
     
     def softmax(self, diag_zero=True):
@@ -115,6 +116,7 @@ class t_SNE:
         approximation of joint distribution probabilities."""
         return (P + P.T) / (2. * P.shape[0])
     
+    
     def p_joint(self, X, target_perplexity):
         """Given a data matrix X, gives joint probabilities matrix.
 
@@ -158,7 +160,8 @@ class t_SNE:
         """
 
         # Initialise our 2D representation
-        Y = rng.normal(0., 0.0001, [X.shape[0], 2])
+        # Y = rng.normal(0., 0.0001, [X.shape[0], 2])
+        Y = rng.uniform(-1, 1, [X.shape[0], 2])
 
         # Initialise past values (used for momentum)
         if momentum:
@@ -167,7 +170,6 @@ class t_SNE:
 
         # Start gradient descent loop
         for i in range(num_iters):
-
             # Get Q and distances (distances only used for t-SNE)
             Q, distances = q_fn(Y)
             # Estimate gradients with respect to Y

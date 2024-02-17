@@ -1,64 +1,35 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from sklearn.datasets import load_digits
-from sklearn.model_selection import train_test_split
-from sklearn.decomposition import PCA, TruncatedSVD
-from sklearn.manifold import TSNE
+from sklearn.datasets import fetch_openml
+from unsupervised.dim_rel.PCA import PCA
 from sklearn.linear_model import LogisticRegression
+from unsupervised.dim_rel.TSNE import TSNE
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-import os
-from PIL import Image
 from sklearn.preprocessing import StandardScaler
 
+# Load MNIST dataset
+mnist = fetch_openml('mnist_784', version=1, parser='auto')
+X, y = mnist['data'], mnist['target'].astype(np.uint8)
 
-#Cargar y Preprocesar las Imágenes
-def load_images(path_cohort):
-    images = []
-    etiquetas = []
-    #Get the list of image file names in the directory
-    list_images = [file for file in os.listdir(path_cohort) if file.endswith(('.jpg', '.jpeg', '.png', '.bmp', '.gif'))]
+# Filter dataset to include only 0s and 8s
+X = X[(y == 0) | (y == 8)]
+y = y[(y == 0) | (y == 8)]
 
-    cont=0
-    for file in list_images:
-          # Obtener el nombre del archivo y su extensión
-        file_name, file_extension = os.path.splitext(file)
-        
-        # Si la extensión es .png, cambiarla a .jpg
-        if file_extension.lower() == '.png':
-            new_file_name = file_name + '.jpg'
-            os.rename(os.path.join(path_cohort, file), os.path.join(path_cohort, new_file_name))
-        else:
-            new_file_name = file
-            
-        #Image reading
-        image_cohort = Image.open(os.path.join(path_cohort, new_file_name)).convert('L').resize((256, 256))
+# Split dataset into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        etiquetas.append(cont)
-        cont+=1
-        images.append(np.array(image_cohort, dtype=np.float32) / 255.0)   # Aplanar la imagen y agregarla a la lista
-    
-    return np.array(images), np.array(etiquetas)
-
-folder_path = "/Users/tatianagarcia/Library/Mobile Documents/com~apple~CloudDocs/Especialización ciencia de datos y analítica/Machine Learning 2/photos_group"
-
-X, y = load_images(folder_path)
-
-# Aplanar las imágenes
-X_flat = X.reshape((X.shape[0], -1))
-
-# Split the dataset into train and test sets
-X_train, X_test, y_train, y_test = train_test_split(X_flat, y, test_size=0.2)
-
+# Scale the data
 scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
 
 # Dimensionality reduction using PCA
 pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X_train)
 
 # Dimensionality reduction using SVD
-svd = TruncatedSVD(n_components=2)
+svd = svd(X,n_components=2)
 X_svd = svd.fit_transform(X_train)
 
 # Dimensionality reduction using t-SNE
@@ -109,3 +80,16 @@ plt.title('t-SNE')
 
 plt.tight_layout()
 plt.show()
+
+
+
+
+# Plot PCA features
+plt.figure(figsize=(10, 5))
+plt.subplot(1, 2, 1)
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap=plt.cm.get_cmap('viridis', 2), marker='.')
+plt.title('PCA')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.colorbar(ticks=range(2), label='Digit')
+
