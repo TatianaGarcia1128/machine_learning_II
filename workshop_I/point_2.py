@@ -1,8 +1,6 @@
 #import modules
 from PIL import Image
 import numpy as np
-from io import BytesIO
-import requests
 import matplotlib.pyplot as plt
 import os
 

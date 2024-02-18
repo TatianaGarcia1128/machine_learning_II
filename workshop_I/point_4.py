@@ -11,9 +11,9 @@ vector_my_face =  Image.open(os.path.join(path_processed_photo))
 
 #Instance of SVD
 param_value_singular=100
-svd_instance = SVD(vector_my_face, param_value_singular)
+svd_instance = SVD(param_value_singular)
 #Use of method
-imagen_recons =svd_instance.svd()
+imagen_recons =svd_instance.svd(vector_my_face)
 
 path_approximation_photo ="/Users/tatianagarcia/Library/Mobile Documents/com~apple~CloudDocs/Especialización ciencia de datos y analítica/Machine Learning 2/machine_learning_II/valores_singulares_"+str(param_value_singular)+".jpg"
 

@@ -2,8 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_openml
 from unsupervised.dim_rel.PCA import PCA
+from unsupervised.dim_rel.SVD import SVD
 from sklearn.linear_model import LogisticRegression
-from unsupervised.dim_rel.TSNE import TSNE
+# from unsupervised.dim_rel.TSNE import TSNE
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
@@ -26,16 +27,16 @@ X_test_scaled = scaler.transform(X_test)
 
 # Dimensionality reduction using PCA
 pca = PCA(n_components=2)
-X_pca = pca.fit_transform(X_train)
+X_pca = pca.fit_transform(X_train_scaled)
 
 # Dimensionality reduction using SVD
-svd = svd(X,n_components=2)
-X_svd = svd.fit_transform(X_train)
+svd = SVD(n_components=2)
+X_svd = svd.fit_transform(X_train_scaled)
 
-# Dimensionality reduction using t-SNE
-perplexity_value = min(30, X_train.shape[0] - 1)
-tsne = TSNE(n_components=2, perplexity=perplexity_value)
-X_tsne = tsne.fit_transform(X_train)
+# # Dimensionality reduction using t-SNE
+# perplexity_value = min(30, X_train.shape[0] - 1)
+# tsne = TSNE(n_components=2, perplexity=perplexity_value)
+# X_tsne = tsne.fit_transform(X_train)
 
 # Train logistic regression models
 log_reg_pca = LogisticRegression(max_iter=1000, C=0.1, solver='saga')
@@ -45,51 +46,38 @@ log_reg_svd = LogisticRegression(max_iter=1000, C=0.1, solver='saga')
 log_reg_svd.fit(X_svd, y_train)
 
 log_reg_tsne = LogisticRegression(max_iter=1000, C=0.1, solver='saga')
-log_reg_tsne.fit(X_tsne, y_train)
+# log_reg_tsne.fit(X_tsne, y_train)
 
 # Evaluate the performance of each model
-y_pred_pca = log_reg_pca.predict(pca.transform(X_test))
+y_pred_pca = log_reg_pca.predict(pca.transform(X_test_scaled))
 accuracy_pca = accuracy_score(y_test, y_pred_pca)
 
-y_pred_svd = log_reg_svd.predict(svd.transform(X_test))
+y_pred_svd = log_reg_svd.predict(svd.fit_transform(X_test_scaled))
 accuracy_svd = accuracy_score(y_test, y_pred_svd)
 
-perplexity_value = min(30, X_test.shape[0] - 1)
-tsne = TSNE(n_components=2, perplexity=perplexity_value)
-y_pred_tsne = log_reg_tsne.predict(tsne.fit_transform(X_test))
-accuracy_tsne = accuracy_score(y_test, y_pred_tsne)
+# perplexity_value = min(30, X_test.shape[0] - 1)
+# tsne = TSNE(n_components=2, perplexity=perplexity_value)
+# y_pred_tsne = log_reg_tsne.predict(tsne.fit_transform(X_test))
+# accuracy_tsne = accuracy_score(y_test, y_pred_tsne)
 
 print("Accuracy with PCA:", accuracy_pca)
 print("Accuracy with SVD:", accuracy_svd)
-print("Accuracy with t-SNE:", accuracy_tsne)
+# print("Accuracy with t-SNE:", accuracy_tsne)
 
 # Plot the reduced features
 plt.figure(figsize=(15, 5))
 
-plt.subplot(1, 3, 1)
+plt.subplot(1, 2, 1)
 plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y_train, cmap=plt.cm.tab10)
 plt.title('PCA')
 
-plt.subplot(1, 3, 2)
+plt.subplot(1, 2, 2)
 plt.scatter(X_svd[:, 0], X_svd[:, 1], c=y_train, cmap=plt.cm.tab10)
 plt.title('SVD')
 
-plt.subplot(1, 3, 3)
-plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=y_train, cmap=plt.cm.tab10)
-plt.title('t-SNE')
+# plt.subplot(1, 3, 3)
+# plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=y_train, cmap=plt.cm.tab10)
+# plt.title('t-SNE')
 
 plt.tight_layout()
 plt.show()
-
-
-
-
-# Plot PCA features
-plt.figure(figsize=(10, 5))
-plt.subplot(1, 2, 1)
-plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap=plt.cm.get_cmap('viridis', 2), marker='.')
-plt.title('PCA')
-plt.xlabel('Principal Component 1')
-plt.ylabel('Principal Component 2')
-plt.colorbar(ticks=range(2), label='Digit')
-
