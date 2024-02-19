@@ -1,21 +1,19 @@
+UMAP, mayqinchus Aproximación y Proyección Uniforme de Colector nisqamanta riman, huk técnica dimensionalidad pisiyachiy kaqmanta, mayqinchus yachayta munan estructura subyacente kaqmanta complejos datos kaqmanta chaymanta representayta huk espacio dimensionalidad kaqmanta aswan pisi kaqpi. UMAPpa qipanpi kaq yupay yachaypa kamachikuyninkunaqa achka yachaypi, topología nisqapi, allinchay yachaykunapim kachkan. Kaypiqa wakin hatun kamachikuykunamantam resumen kachkan:
 
+Colector Yachay: UMAP nisqa hatun dimensional nisqa willakuykunaqa colector nisqapi kasqanmantam hapin, chaymi pisi dimensionniyuq, mana chiruyuq subespacio nisqa hatun dimensional nisqa espacio ukupi churasqa. Metanqa kay colectorpa estructura local y global nisqa waqaychaymi, chaypaqmi proyectaspa datos nisqakunata aswan pisi dimensionalidad nisqa espacioman.
 
-UMAP, que significa Aproximación y Proyección Uniforme de Variedades, es una técnica de reducción de dimensionalidad que tiene como objetivo aprender la estructura subyacente de datos complejos y representarla en un espacio de menor dimensionalidad. Los principios matemáticos subyacentes detrás de UMAP se basan en el aprendizaje de variedades, topología y técnicas de optimización. Aquí hay un resumen de algunos principios clave:
+Representaciones Topológicas: UMAPqa topológico nisqa hamutaykunatam aprovechan, chaynapi llaqtapipas, pachantinpipas estructura nisqa waqaychasqa kananpaq. Chayqa ruwan huk difusa representación topológica nisqa willakuykunata, hap’in relaciones nisqakunata datos puntos nisqakunapura karu kayninkuman hina alto-dimensional espacio nisqapi.
 
-Aprendizaje de Variedades: UMAP asume que los datos de alta dimensionalidad yacen en una variedad, que es un subespacio de baja dimensionalidad y no lineal incrustado dentro del espacio de alta dimensionalidad. Su objetivo es preservar la estructura local y global de esta variedad al proyectar los datos en un espacio de menor dimensionalidad.
+Teoría de Conjuntos Difusos: UMAP nisqa teoría de conjuntos difusos nisqawanmi yanapakun, chaywanmi probabilísticamente nisqa willakuy puntokunapura relaciones nisqakunata rikuchin. Kayqa aswan allinta hap'iyta atikunki complejos patrones chaymanta estructuras presentes datos kaqpi aswan allinta tradicional técnicas kaqmanta PCA utaq t-SNE hina.
 
-Representaciones Topológicas: UMAP aprovecha los conceptos topológicos para preservar tanto la estructura local como global. Construye una representación topológica difusa de los datos, capturando las relaciones entre los puntos de datos según sus distancias en el espacio de alta dimensionalidad.
+Allinchay: UMAP huk objetivo ruwayta allinchan, chaymi equilibran waqaychayta llaqtapi hinallataq pachantinpi estructurata hinallataq sumaq kaynintapas churasqa. Kay allinchayqa chayanmi uraykachiy gradiente estocástico nisqawan utaq chayman rikchakuq técnicas nisqawan.
 
-Teoría de Conjuntos Difusos: UMAP utiliza la teoría de conjuntos difusos para representar las relaciones entre los puntos de datos de manera probabilística. Esto le permite capturar patrones y estructuras complejas presentes en los datos de manera más efectiva que técnicas tradicionales como PCA o t-SNE.
+UMAP nisqaqa makina yachaypi, willaykunata t'aqwiypi ima imaymana ruwanakunapaqmi allin:
 
-Optimización: UMAP optimiza una función objetivo que equilibra la preservación de la estructura local y global, así como la suavidad de la incrustación. Logra esta optimización utilizando descenso de gradiente estocástico u técnicas similares.
+Dimensionalidad pisiyachiy: UMAP allinta pisiyachinman hatun dimensional nisqa willakuypa dimensionalidadninta, chaynallataqmi urapi kaq estructurantapas waqaychan. Aswan allinmi kanman complejo hinaspa mana lineal nisqa willakuy huñukunawan ruwaspa maypichus PCA hina lineal ruwaykuna mana suficientechu kanman.
 
-UMAP es útil para diversas tareas en aprendizaje automático y análisis de datos:
+Willayta Rikuchiy: UMAP iskay utaq kimsa tupuypi rikuchinapaq churasqakunata ruwan, hatun tupuyuq willay huñukunata intuitivo rikuchiyta saqin. Chayqa aswanta llamk’achisqa kachkan exploratorio datos análisis nisqapi, rikuchiy ruwaykunapi ima.
 
-Reducción de Dimensionalidad: UMAP puede reducir efectivamente la dimensionalidad de datos de alta dimensionalidad mientras preserva su estructura subyacente. Es particularmente útil al tratar con conjuntos de datos complejos y no lineales donde métodos lineales como PCA pueden no ser suficientes.
+Clustering chaymanta Clasificación: UMAP embeddings llamk'achiy atikunman yaykuy ruwanakuna hina clustering utaq clasificación algoritmos kaqpaq. Willayta dimensionalidadta pisiyachispa, estructuranta waqaychaspa, UMAP embeddings nisqakuna allinchayta atinku ruwayta urapi makina yachay modelokuna.
 
-Visualización de Datos: UMAP produce incrustaciones que pueden visualizarse en dos o tres dimensiones, lo que permite una visualización intuitiva de conjuntos de datos de alta dimensionalidad. Se utiliza comúnmente en análisis exploratorio de datos y tareas de visualización.
-
-Agrupación y Clasificación: Las incrustaciones de UMAP se pueden utilizar como características de entrada para algoritmos de agrupación o clasificación. Al reducir la dimensionalidad de los datos mientras se preserva su estructura, las incrustaciones de UMAP pueden mejorar el rendimiento de los modelos de aprendizaje automático subyacentes.
-
-Ingeniería de Características: UMAP se puede utilizar como una técnica de ingeniería de características para generar características informativas para tareas de aprendizaje automático subyacentes. Al incrustar datos de alta dimensionalidad en un espacio de menor dimensionalidad, UMAP puede ayudar a extraer información relevante y reducir el ruido en los datos.
+Ingeniería de Características: UMAP huk ingeniería de características técnica hina llamk'achiy atikunman, willakuy ruwanakuna ruwanapaq, makina yachay ruwanakuna ukhupi. Alto dimensional willayta aswan pisi dimensional espaciopi churaspa, UMAP yanapanman tupaq willayta hurquyta chaymanta willakuypi qapariyta pisiyachiyta.

@@ -63,7 +63,11 @@ def grid_search(diff_i, i, perplexity):
 
         # Equation 1 (ε -> 0) 
         ε = np.nextafter(0,1)
-        p_new = np.maximum(p/np.sum(p),ε)
+        if np.sum(p) == 0:
+            p_new = np.full_like(p, ε)  # Filling p_new with ε
+        else:
+            p_new = np.maximum(p/np.sum(p), ε)
+
         
         # Shannon Entropy
         H = -np.sum(p_new*np.log2(p_new))

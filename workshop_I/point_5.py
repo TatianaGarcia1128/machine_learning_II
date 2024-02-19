@@ -1,13 +1,18 @@
+#import modules
 import numpy as np
-from sklearn.datasets import fetch_openml
+from sklearn.datasets import load_digits
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
 
 # Load MNIST dataset
-mnist = fetch_openml('mnist_784', version=1, parser='auto')
-X, y = mnist['data'], mnist['target'].astype(np.uint8)
+digits = load_digits()
+
+# Filter the dataset to only include digits 0 and 8
+filters = (digits.target == 0) | (digits.target == 8)
+X = digits.images[filters]
+y = digits.target[filters]
 
 # Filter dataset to include only 0s and 8s
 X = X[(y == 0) | (y == 8)]
@@ -31,3 +36,10 @@ y_pred = lr_model.predict(X_test)
 # Calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 print("Baseline logistic regression accuracy:", accuracy)
+print("The baseline performance of this naive logistic regression model can vary depending on factors like the quality of features (raw pixel values in this case), the chosen model, " \
+    "and hyperparameters. However, we can make some general observations: \n" \
+    "Simplicity of the model: Logistic regression is a simple linear classifier. It may struggle to capture complex patterns present in raw images. \n"
+    "Baseline performance: Given that logistic regression is a simple model and we are using raw pixel values as features without any preprocessing, we can expect a moderate baseline " \
+    "performance. The accuracy typically ranges from around 85% to 95% on this binary classification task (0s vs. 8s), but this can vary. \n" \
+    "Improvement potential: The baseline performance provides a starting point for further experimentation. Techniques such as feature scaling, dimensionality reduction, or more complex " \
+    "odels (e.g., deep neural networks) can potentially improve performance beyond this baseline.")
