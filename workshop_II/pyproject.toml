@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "workshopi"
+name = "workshopii"
 version = "0.1.0"
 description = ""
 authors = ["TatianaGarcia1128 <jtatiana1128@gmail.com>"]
@@ -7,11 +7,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
+scikit-learn-extra = "^0.3.0"
 numpy = "^1.26.4"
-pillow = "^10.2.0"
+disutils = "^1.4.32.post2"
+setuptools = "^69.1.0"
 matplotlib = "^3.8.3"
-scikit-image = "^0.22.0"
-scikit-learn = "^1.4.1.post1"
 
 
 [build-system]

@@ -14,24 +14,24 @@ filters = (digits.target == 0) | (digits.target == 8)
 X = digits.images[filters]
 y = digits.target[filters]
 
-# Filter dataset to include only 0s and 8s
-X = X[(y == 0) | (y == 8)]
-y = y[(y == 0) | (y == 8)]
-
 # Split dataset into train and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+#Flatten the data into a two-dimensional array
+X_train_flat = X_train.reshape(X_train.shape[0], -1)
+X_test_flat = X_test.reshape(X_test.shape[0], -1)
+
 # Scale the data
 scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+X_train_scaled = scaler.fit_transform(X_train_flat)
+X_test_scaled = scaler.transform(X_test_flat)
 
 # Train logistic regression model
 lr_model = LogisticRegression(max_iter=1000)
 lr_model.fit(X_train_scaled, y_train)
 
 # Predict on test set
-y_pred = lr_model.predict(X_test)
+y_pred = lr_model.predict(X_test_flat)
 
 # Calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
