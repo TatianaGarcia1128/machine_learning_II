@@ -31,7 +31,7 @@ print('Executing the above code predicts the Silhouette score of 0.571. This ind
 
 
 range_n_clusters = [2, 3, 4, 5, 6]
-
+silhouette_scores = []  #List to store Silhouette coefficients
 for n_clusters in range_n_clusters:
     # Create a subplot with 1 row and 2 columns
     fig, (ax1, ax2) = plt.subplots(1, 2)
@@ -61,6 +61,9 @@ for n_clusters in range_n_clusters:
         "The average silhouette_score is :",
         silhouette_avg,
     )
+    
+    #Add the coefficient to the list
+    silhouette_scores.append(silhouette_avg)
 
     # Compute the silhouette scores for each sample
     sample_silhouette_values = silhouette_samples(X, cluster_labels)
@@ -137,23 +140,8 @@ for n_clusters in range_n_clusters:
 
 plt.show()
 
-
-#En este ejemplo, el análisis de siluetas se utiliza para elegir un valor óptimo para n_clusters. 
-#El gráfico de siluetas muestra que el valor de n_clusters de 3, 5 y 6 es una mala elección para los datos dados debido a la 
-#presencia de grupos con puntuaciones de silueta por debajo de la media y también debido a las amplias fluctuaciones en el tamaño 
-#de los gráficos de silueta. El análisis de siluetas es más ambivalente a la hora de decidir entre 2 y 4.
-
-
-# In this example the silhouette analysis is used to choose an optimal value for n_clusters. The silhouette plot shows that the n_clusters value 
-# of 3, 5 and 6 are a bad pick for the given data due to the presence of clusters with below average silhouette scores and also due to wide 
-# fluctuations in the size of the silhouette plots. Silhouette analysis is more ambivalent in deciding between 2 and 4.
-
-
-#Además, a partir del grosor del gráfico de la silueta, se puede visualizar el tamaño del grupo. El gráfico de siluetas para el grupo 0 cuando 
-# n_clusters es igual a 2, es más grande en tamaño debido a la agrupación de los 3 subgrupos en un grupo grande. Sin embargo, cuando los n_clusters 
-# son iguales a 4, todos los gráficos son más o menos de grosor similar y, por lo tanto, son de tamaños similares, como también se puede verificar 
-# en el gráfico de dispersión etiquetado a la derecha.
-
-# Also from the thickness of the silhouette plot the cluster size can be visualized. The silhouette plot for cluster 0 when n_clusters is equal to 2, 
-# is bigger in size owing to the grouping of the 3 sub clusters into one big cluster. However when the n_clusters is equal to 4, all the plots are more 
-# or less of similar thickness and hence are of similar sizes as can be also verified from the labelled scatter plot on the right.
+#Finding the value of k with the highest Silhouette coefficient
+best_k = 2 + silhouette_scores.index(max(silhouette_scores))
+print('Value of k with the highest Silhouette coefficient', best_k)
+print('In general, for Kmeans the clusters for k=6 visually do not seem the best; since there is a cluster below the average, data apparently misclassified ' \
+      'since the silhouette coefficient is negative.')
